@@ -6,6 +6,8 @@ image_height = 256
 puts "P3\n#{image_width} #{image_height}\n255"
 
 (0...image_height).each do |j|
+  STDERR.print("\rScanlines remaining: #{image_height - j}")
+  STDERR.flush
   (0...image_width).each do |i|
     r = i.to_f / (image_width - 1)
     g = j.to_f / (image_height - 1)
