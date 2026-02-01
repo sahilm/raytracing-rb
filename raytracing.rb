@@ -12,7 +12,7 @@ image_height = (image_width / aspect_ratio).to_i
 focal_length = 1.0
 viewport_height = 2.0
 viewport_width = viewport_height * (image_width / image_height).to_f
-camera_center = Point3.new(0,0,0)
+camera_center = Point3.new(0, 0, 0)
 
 viewport_u = Vec3.new(viewport_width, 0, 0)
 viewport_v = Vec3.new(0, -viewport_height, 0)
@@ -20,7 +20,7 @@ viewport_v = Vec3.new(0, -viewport_height, 0)
 pixel_delta_u = viewport_u / image_width
 pixel_delta_v = viewport_v / image_height
 
-viewport_upper_left = camera_center - Vec3.new(0,0, focal_length) - viewport_u / 2 - viewport_v / 2
+viewport_upper_left = camera_center - Vec3.new(0, 0, focal_length) - viewport_u / 2 - viewport_v / 2
 pixel00_loc = viewport_upper_left + ((pixel_delta_u + pixel_delta_v) / 2)
 
 puts "P3\n#{image_width} #{image_height}\n255"

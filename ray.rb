@@ -18,6 +18,6 @@ class Ray
   def color
     unit_direction = direction.unit_vector
     a = 0.5 * (unit_direction.y + 1.0)
-    Color.new(1.0,1.0,1.0) * (1.0 - a) + (Color.new(0.5,0.7,1.0) * a)
+    Color.new(1.0, 1.0, 1.0) * (1.0 - a) + (Color.new(0.5, 0.7, 1.0) * a)
   end
 end

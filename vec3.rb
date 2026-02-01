@@ -30,7 +30,7 @@ class Vec3
   end
 
   def length
-    Math.sqrt(x*x+y*y+z*z)
+    Math.sqrt(x * x + y * y + z * z)
   end
 
   def unit_vector
