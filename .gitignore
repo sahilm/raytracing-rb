@@ -1,3 +1,5 @@
 *.ppm
 .bundle/
 vendor/
+.idea/
+out/
