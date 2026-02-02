@@ -1,9 +1,24 @@
 # frozen_string_literal: true
 
+RubyVM::YJIT.enable
+
 require_relative './color'
 require_relative './point3'
 require_relative './vec3'
 require_relative './ray'
+
+def hit_sphere(center, radius, ray)
+  # C = center, Q = ray.origin
+  oc = center - ray.origin
+  # a = 2d
+  a = ray.direction.dot(ray.direction)
+  # b = -2d . * (C-Q)
+  b = -2.0 * ray.direction.dot(oc)
+  # c = (C - Q) . (C - Q) - r * r
+  c = oc.dot(oc) - radius * radius
+  discriminant = b * b - 4 * a * c
+  discriminant >= 0
+end
 
 aspect_ratio = 16.0 / 9.0
 image_width = 400
@@ -33,7 +48,10 @@ puts "P3\n#{image_width} #{image_height}\n255"
     ray_direction = pixel_center - camera_center
     ray = Ray.new(camera_center, ray_direction)
 
-    color = ray.color
-    puts color
+    if hit_sphere(Point3.new(0, 0, -1), 0.5, ray)
+      puts Color.new(1, 0.411, 0.7)
+    else
+      puts ray.color
+    end
   end
 end

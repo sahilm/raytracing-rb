@@ -37,6 +37,10 @@ class Vec3
     self / length
   end
 
+  def dot(other)
+    x * other.x + y * other.y + z * other.z
+  end
+
   def ==(other)
     @x == other.x && @y == other.y && @z == other.z
   end
