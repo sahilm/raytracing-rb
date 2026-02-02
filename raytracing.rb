@@ -17,11 +17,16 @@ def hit_sphere(center, radius, ray)
   # c = (C - Q) . (C - Q) - r * r
   c = oc.dot(oc) - radius * radius
   discriminant = b * b - 4 * a * c
-  discriminant >= 0
+
+  if discriminant < 0
+    -1.0
+  else
+    (-b - Math.sqrt(discriminant)) / 2.0 * a
+  end
 end
 
 aspect_ratio = 16.0 / 9.0
-image_width = 400
+image_width = 1600
 image_height = (image_width / aspect_ratio).to_i
 
 focal_length = 1.0
@@ -39,6 +44,7 @@ viewport_upper_left = camera_center - Vec3.new(0, 0, focal_length) - viewport_u 
 pixel00_loc = viewport_upper_left + ((pixel_delta_u + pixel_delta_v) * 0.5)
 
 puts "P3\n#{image_width} #{image_height}\n255"
+sphere_center = Point3.new(0, 0, -1)
 
 (0...image_height).each do |j|
   STDERR.print("\rScanlines remaining: #{image_height - j}")
@@ -47,9 +53,11 @@ puts "P3\n#{image_width} #{image_height}\n255"
     pixel_center = pixel00_loc + (pixel_delta_u * i) + (pixel_delta_v * j)
     ray_direction = pixel_center - camera_center
     ray = Ray.new(camera_center, ray_direction)
+    hit = hit_sphere(sphere_center, 0.5, ray)
 
-    if hit_sphere(Point3.new(0, 0, -1), 0.5, ray)
-      puts Color.new(1, 0.411, 0.7)
+    if hit > 0.0
+      surface_normal = (ray.at(hit) - sphere_center).unit_vector
+      puts (Color.new(surface_normal.x + 1, surface_normal.y + 1, surface_normal.z + 1) * 0.5)
     else
       puts ray.color
     end

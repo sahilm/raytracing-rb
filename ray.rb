@@ -12,7 +12,7 @@ class Ray
   end
 
   def at(t)
-    origin + t * direction
+    origin + (direction * t)
   end
 
   def color
