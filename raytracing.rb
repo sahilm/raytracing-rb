@@ -21,7 +21,7 @@ def hit_sphere(center, radius, ray)
   if discriminant < 0
     -1.0
   else
-    (-b - Math.sqrt(discriminant)) / 2.0 * a
+    (-b - Math.sqrt(discriminant)) / (2.0 * a)
   end
 end
 
