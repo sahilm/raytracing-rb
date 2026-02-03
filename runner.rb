@@ -3,4 +3,6 @@ RubyVM::YJIT.enable
 
 require_relative './raytracing'
 
-main(image_width: 400)
+image_width = ARGV[0].nil? ? 1600 : ARGV[0].to_i
+
+main(image_width: image_width)
